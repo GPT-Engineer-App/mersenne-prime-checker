@@ -30,17 +30,19 @@ const IndexPage = () => {
   const [limit, setLimit] = useState("");
   const [mersennePrimes, setMersennePrimes] = useState([]);
 
-  useEffect(() => {
-    if (limit) {
-      setMersennePrimes(findMersennePrimes(parseInt(limit, 10)));
-    }
-  }, [limit]);
+  const handleLimitChange = (event) => {
+    setLimit(event.target.value);
+  };
+
+  const handleFindPrimesClick = () => {
+    setMersennePrimes(findMersennePrimes(parseInt(limit, 10)));
+  };
 
   return (
     <VStack spacing={4}>
       <Text>Enter the limit for Mersenne prime search:</Text>
       <Input placeholder="Enter a number" value={limit} onChange={(e) => setLimit(e.target.value)} />
-      <Button onClick={() => setMersennePrimes(findMersennePrimes(parseInt(limit, 10)))}>Find Mersenne Primes</Button>
+      <Button onClick={handleFindPrimesClick}>Find Mersenne Primes</Button>
       <VStack spacing={2}>
         {mersennePrimes.map((prime, index) => (
           <Text key={index}>{prime} is a Mersenne prime.</Text>
